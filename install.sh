@@ -32,13 +32,13 @@ checkopts()
         case "${o}" in
             h) help && exit 0;;
             u) name=${OPTARG};;
-            m) export progsfile="https://raw.githubusercontent.com/mamizaxyz/dotfiles/main/progs/minimal.csv";;
+            m) export progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
             *) printf "ERROR: Invalid option: %s\n" "$OPTARG"
                printf "See \`./install.sh -h\` for help\n" && exit 1;;
         esac
     done
 
-    [ -z "$progsfile" ] && export progsfile="https://raw.githubusercontent.com/mamizaxyz/dotfiles/main/progs/progs.csv"
+    [ -z "$progsfile" ] && export progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
 
     while ! echo "$name"  | grep -q "^[a-z_][a-z0-9_-]*$"; do
         printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1

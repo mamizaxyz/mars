@@ -21,4 +21,4 @@ pacstrap /mnt base linux linux-firmware networkmanager grub sudo vim
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-curl https://raw.githubusercontent.com/mamizaxyz/dotfiles/main/testing/chroot.sh > /mnt/chroot.sh && arch-chroot /mnt bash chroot.sh && rm /mnt/chroot.sh
+curl https://raw.githubusercontent.com/mamizaxyz/mars/main/testing/chroot.sh > /mnt/chroot.sh && arch-chroot /mnt bash chroot.sh && rm /mnt/chroot.sh
