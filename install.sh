@@ -7,17 +7,16 @@
 set -e
 
 while getopts ":hmu:" o; do
-    case "${o}" in
-        h) help && exit 0;;
-        m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
-        u) name=${OPTARG};;
-        *) printf "ERROR: Invalid option: -%s\n" "$OPTARG"
-           printf "See \`./install.sh -h\` for help\n" && exit 1;;
-    esac
+	case "${o}" in
+		h) help && exit 0;;
+		m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
+		u) name=${OPTARG};;
+		*) printf "ERROR: Invalid option: -%s\nSee \"./install.sh -h\" for help\n" "${OPTARG}" && exit 1;;
+	esac
 done
 
-while ! echo "$name"  | grep -q "^[a-z_][a-z0-9_-]*$"; do
-    printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
+while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
+	printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
 done
 
 ### Variables:
