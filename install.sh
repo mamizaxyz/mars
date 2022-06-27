@@ -157,13 +157,13 @@ filemvs()
 
 ### The actuall script:
 
+pacmansyu || { printf "ERROR: Could not update packages with \`pacman -Syu\`\n" && exit 1; }
+
 for x in git zsh base-devel; do
     installpkg "$x"
 done
 
 ! { id -u "$name" >/dev/null 2>&1; } && useradd -s /bin/zsh -m "$name" && passwd "$name"
-
-pacmansyu || { printf "ERROR: Could not update packages with \`pacman -Syu\`\n" && exit 1; }
 
 putgitrepo || { printf "ERROR: Failed to install dotfiles\n" && exit 1; }
 
