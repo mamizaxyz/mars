@@ -15,6 +15,9 @@ while getopts ":hmu:" o; do
 	esac
 done
 
+[ -z "$name" ] && name="mamiza"
+[ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
+
 while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
 	printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
 done
@@ -23,9 +26,6 @@ done
 email="themamiza@gmail.com"
 dotfilesrepo="https://github.com/mamizaxyz/dotfiles"
 slockrepo="https://github.com/mamizaxyz/slock.git"
-
-[ -z "$name" ] && name="mamiza"
-[ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
 
 ### Function declarations:
 help()
