@@ -10,7 +10,6 @@ set -e
 email="themamiza@gmail.com"
 dotfilesrepo="https://github.com/mamizaxyz/dotfiles"
 slockrepo="https://github.com/mamizaxyz/slock.git"
-doomrepo="https://github.com/hlissner/doom-emacs.git"
 
 [ -z "$name" ] && name="mamiza"
 
@@ -148,28 +147,6 @@ mamiza ALL=(ALL) NOPASSWD: /usr/bin/pacman -Syyu, /usr/bin/pacman -Syu"
     sudo -u "$name" mkdir -p "/home/$name/.cache/zsh" "/home/$name/.cache/bash"
 }
 
-installdoom()
-{
-    while true; do
-        printf "Do you want doom emacs installed? [y/N]"
-        read -r answer
-        case "${answer,,}" in
-            y|yes) break;;
-            n|no)  return 0;;
-            *) printf "Invalid answer\n"
-        esac
-    done
-
-    dir="/home/$name/.emacs.d"
-    sudo -u "$name" git clone --depth 1 "$doomrepo" "$dir" || {
-        cd "$dir" || return 1
-        sudo -u "$name" git pull --force origin master
-    }
-    sudo -u "$name" mkdir -pv "/home/$name/.config/doom"
-    sudo -u "$name" ln -sf "/home/$name/.emacs.d/bin/doom" "/home/$name/.local/bin/doom"
-    sudo -u "$name" "/home/$name/.local/bin/doom" install
-}
-
 filemvs()
 {
     rm -rf  "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/.git" \
@@ -203,8 +180,6 @@ pacman -Q vim >/dev/null 2>&1 && pacman -Rns vim
 ln -sf /usr/bin/nvim /usr/bin/vim
 
 filecorrections || { printf "ERROR: Failed \`filecorrections\`\n" && exit 1; }
-
-installdoom || { printf "ERROR: Failed to install doom-emacs\n" && exit 1; }
 
 chsh -s /bin/zsh "$name" || { printf "ERROR: Failed to change shell to zsh\n" && exit 1; }
 
