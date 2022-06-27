@@ -163,7 +163,11 @@ for x in git zsh base-devel; do
     installpkg "$x"
 done
 
-! { id -u "$name" >/dev/null 2>&1; } && useradd -s /bin/zsh -m "$name" && passwd "$name"
+if getent passwd "$name" 2>&1 >/dev/null; then
+	passwd "$name"
+elif
+	useradd -s /bin/zsh -m "$name"; passwd "$name"
+fi
 
 putgitrepo || { printf "ERROR: Failed to install dotfiles\n" && exit 1; }
 
