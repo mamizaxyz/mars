@@ -31,13 +31,15 @@ slockrepo="https://github.com/mamizaxyz/slock.git"
 ### Function declarations:
 help()
 {
-    printf "Optional arguments:\n"
-    printf "    -h          - Display this message and exit\n"
-    printf "    -u          - Accept the next argument as the username\n"
-    printf "    -m          - Do a minimal install\n"
-    printf "                    (recommended for slow internet connections)\n"
-    printf "Written by mamiza: <%s>\n" "$email"
-    printf "More help: <%s>\n" "$dotfilesrepo"
+	cat <<EOF
+Optional arguments:
+	-h		- Display this message and exit
+	-u		- Accept the next argument as the username
+	-m		- Do a minimal install
+				(recommended for slow internet connections)
+Written by mamiza: <$email>
+More help: <$dotfilesrepo>
+EOF
 }
 
 
