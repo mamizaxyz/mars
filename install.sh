@@ -11,7 +11,7 @@ while getopts ":hmu:" o; do
         h) help && exit 0;;
         m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
         u) name=${OPTARG};;
-        *) printf "ERROR: Invalid option: %s\n" "$OPTARG"
+        *) printf "ERROR: Invalid option: -%s\n" "$OPTARG"
            printf "See \`./install.sh -h\` for help\n" && exit 1;;
     esac
 done
