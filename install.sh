@@ -6,12 +6,27 @@
 # Exit on error (e):
 set -e
 
+while getopts ":hmu:" o; do
+    case "${o}" in
+        h) help && exit 0;;
+        m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
+        u) name=${OPTARG};;
+        *) printf "ERROR: Invalid option: %s\n" "$OPTARG"
+           printf "See \`./install.sh -h\` for help\n" && exit 1;;
+    esac
+done
+
+while ! echo "$name"  | grep -q "^[a-z_][a-z0-9_-]*$"; do
+    printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
+done
+
 ### Variables:
 email="themamiza@gmail.com"
 dotfilesrepo="https://github.com/mamizaxyz/dotfiles"
 slockrepo="https://github.com/mamizaxyz/slock.git"
 
 [ -z "$name" ] && name="mamiza"
+[ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
 
 ### Function declarations:
 help()
@@ -25,24 +40,6 @@ help()
     printf "More help: <%s>\n" "$dotfilesrepo"
 }
 
-checkopts()
-{
-    while getopts ":hmu:" o; do
-        case "${o}" in
-            h) help && exit 0;;
-            u) name=${OPTARG};;
-            m) export progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
-            *) printf "ERROR: Invalid option: %s\n" "$OPTARG"
-               printf "See \`./install.sh -h\` for help\n" && exit 1;;
-        esac
-    done
-
-    [ -z "$progsfile" ] && export progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
-
-    while ! echo "$name"  | grep -q "^[a-z_][a-z0-9_-]*$"; do
-        printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
-    done
-}
 
 pacmansyu()
 {
@@ -158,8 +155,6 @@ filemvs()
 }
 
 ### The actuall script:
-
-checkopts "$@"
 
 ! { id -u "$name" >/dev/null 2>&1; } && useradd -s /bin/zsh -m "$name" && passwd "$name"
 
