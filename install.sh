@@ -6,13 +6,13 @@
 # Exit on error (e):
 set -e
 
-while getopts ":hmu:" o; do
-	case "${o}" in
-		h) help && exit 0;;
-		m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
-		u) name=${OPTARG};;
-		*) printf "ERROR: Invalid option: -%s\nSee \"./install.sh -h\" for help\n" "${OPTARG}" && exit 1;;
-	esac
+while getopts ":h:m:u:" o; do
+    case "${o}" in
+        h) help && exit 0;;
+        m) progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/minimal.csv";;
+        u) name=${OPTARG};;
+        *) printf "ERROR: Invalid option: -%s\nSee \"./install.sh -h\" for help\n" "${OPTARG}" && exit 1;;
+    esac
 done
 
 [ -z "$name" ] && name="mamiza"
