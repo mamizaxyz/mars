@@ -19,7 +19,7 @@ done
 [ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/mamizaxyz/mars/main/progs/progs.csv"
 
 while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
-	printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
+        printf "ERROR: Username '%s' is not valid\n" "$name" && exit 1
 done
 
 ### Variables:
@@ -30,12 +30,12 @@ slockrepo="https://github.com/mamizaxyz/slock.git"
 ### Function declarations:
 help()
 {
-	cat <<EOF
+    cat <<EOF
 Optional arguments:
-	-h		- Display this message and exit
-	-u		- Accept the next argument as the username
-	-m		- Do a minimal install
-				(recommended for slow internet connections)
+         -h     - Display this message and exit
+         -u     - Accept the next argument as the username
+         -m     - Do a minimal install
+                  (recommended for slow internet connections)
 Written by mamiza: <$email>
 More help: <$dotfilesrepo>
 EOF
@@ -77,7 +77,7 @@ installparu()
 
 aurinstall()
 {
-    sudo -u "$name" paru --noconfirm -S "$1"
+        sudo -u "$name" paru --noconfirm -S "$1"
 }
 
 gitmakeinstall()
@@ -160,13 +160,13 @@ filemvs()
 pacmansyu || { printf "ERROR: Could not update packages with \`pacman -Syu\`\n" && exit 1; }
 
 for x in git zsh base-devel; do
-    installpkg "$x"
+        installpkg "$x"
 done
 
-	passwd "$name"
-elif
-	useradd -s /bin/zsh -m "$name"; passwd "$name"
 if getent passwd "$name" >/dev/null 2>&1; then
+        passwd "$name"
+else
+        useradd -s /bin/zsh -m "$name"; passwd "$name"
 fi
 
 putgitrepo || { printf "ERROR: Failed to install dotfiles\n" && exit 1; }
