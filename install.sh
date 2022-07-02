@@ -171,6 +171,8 @@ fi
 
 putgitrepo || { printf "ERROR: Failed to install dotfiles\n" && exit 1; }
 
+filecorrections || { printf "ERROR: Failed \`filecorrections\`\n" && exit 1; }
+
 installparu || { printf "ERROR: paru installation failed.\n" && exit 1; }
 installationloop || { printf "ERROR: Failed \`installationloop\`\n" && exit 1; }
 gitinstallslock || { printf "ERROR: Failed to install slock\n" && exit 1; }
@@ -178,8 +180,6 @@ sudo -u "$name" paru -S libxft-bgra-git || { printf "ERROR: Failed to install \`
 
 pacman -Q vim >/dev/null 2>&1 && pacman -Rns vim
 ln -sf /usr/bin/nvim /usr/bin/vim
-
-filecorrections || { printf "ERROR: Failed \`filecorrections\`\n" && exit 1; }
 
 chsh -s /bin/zsh "$name" || { printf "ERROR: Failed to change shell to zsh\n" && exit 1; }
 
